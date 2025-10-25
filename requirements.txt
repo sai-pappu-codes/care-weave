@@ -1,3 +1,4 @@
+gdown>=4.7.0
 streamlit>=1.32.0
 tensorflow>=2.15.0
 pillow>=10.0.0
