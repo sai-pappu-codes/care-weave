@@ -1,5 +1,6 @@
 import streamlit as st
-import sys, os
+import sys
+import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from utils.helpers import load_skin_model, predict_skin_disease
 
@@ -15,10 +16,14 @@ st.caption("Upload a skin image. MobileNetV2 classifies it into one of 20 skin d
 st.info("📌 Ensure `skin_disease_classifier_final.keras` and `skin_disease_class_names.pkl` are in the `models/` folder.", icon="ℹ️")
 
 # ── Load model (cached — only loads once per session) ─────────────────────────
-@st.cache_resource(show_spinner="Loading skin disease model…")
+@st.cache_resource(show_spinner="Downloading skin model from Google Drive...")
 def get_skin_model():
+    import gdown
+    if not os.path.exists(MODEL_PATH):
+        os.makedirs("models", exist_ok=True)
+        url = f"https://drive.google.com/uc?id=1YZvtCwOKdVdFotppkCGFXn8DoHf6CEQr"
+        gdown.download(url, MODEL_PATH, quiet=False)
     return load_skin_model(MODEL_PATH, NAMES_PATH)
-
 model, class_names = get_skin_model()
 
 if model is None:
