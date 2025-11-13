@@ -63,13 +63,25 @@ import gdown
 SKIN_MODEL_GDRIVE_ID = "1YZvtCwOKdVdFotppkCGFXn8DoHf6CEQr"   
 
 def download_model_if_needed(model_path: str, gdrive_id: str):
+    import os
+
     if os.path.exists(model_path):
+        print("✅ Model already exists at:", model_path)
         return True
+
     os.makedirs(os.path.dirname(model_path), exist_ok=True)
+
     try:
         url = f"https://drive.google.com/uc?id={gdrive_id}"
-        gdown.download(url, model_path, quiet=False)
-        return True
+        print("⬇️ Downloading model from:", url)
+
+        import gdown
+        gdown.download(url, model_path, quiet=False, fuzzy=True)
+
+        print("📂 Exists after download:", os.path.exists(model_path))
+
+        return os.path.exists(model_path)
+
     except Exception as e:
         print(f"[Download error] {e}")
         return False
@@ -103,6 +115,7 @@ def load_skin_model(model_path: str, names_path: str):
         model = tf.keras.models.load_model(
             model_path,
             custom_objects={'focal_loss_fn': focal_loss(gamma=2.0, alpha=0.25)}
+            compile=False
         )
         with open(names_path, 'rb') as f:
             class_names = pickle.load(f)
