@@ -18,6 +18,7 @@ import pandas as pd
 import matplotlib
 matplotlib.use('Agg')          # non-interactive backend for Streamlit
 import matplotlib.pyplot as plt
+import streamlit as st
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -105,12 +106,10 @@ def focal_loss(gamma=2.0, alpha=0.25):
     return focal_loss_fn
 
 
+
+@st.cache_resource   # ✅ ADD THIS LINE
 def load_skin_model(model_path: str, names_path: str):
-    """
-    Load the MobileNetV2 skin disease model and class names.
-    Returns (model, class_names) or (None, None) on failure.
-    """
-    # Convert to absolute path
+
     model_path = os.path.join(BASE_DIR, model_path) if not os.path.isabs(model_path) else model_path
     names_path = os.path.join(BASE_DIR, names_path) if not os.path.isabs(names_path) else names_path
 
@@ -118,15 +117,19 @@ def load_skin_model(model_path: str, names_path: str):
 
     if not TF_AVAILABLE:
         return None, None
+
     try:
         model = tf.keras.models.load_model(
             model_path,
             custom_objects={'focal_loss_fn': focal_loss(gamma=2.0, alpha=0.25)},
             compile=False
         )
+
         with open(names_path, 'rb') as f:
             class_names = pickle.load(f)
+
         return model, class_names
+
     except Exception as e:
         print(f"[Skin model load error] {e}")
         return None, None
