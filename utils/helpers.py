@@ -19,6 +19,8 @@ import matplotlib
 matplotlib.use('Agg')          # non-interactive backend for Streamlit
 import matplotlib.pyplot as plt
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 # ── Optional heavy imports (caught if not installed) ─────────────────────────
 try:
     import tensorflow as tf
@@ -108,7 +110,12 @@ def load_skin_model(model_path: str, names_path: str):
     Load the MobileNetV2 skin disease model and class names.
     Returns (model, class_names) or (None, None) on failure.
     """
+   # Convert to absolute path
+    model_path = os.path.join(BASE_DIR, model_path) if not os.path.isabs(model_path) else model_path
+    names_path = os.path.join(BASE_DIR, names_path) if not os.path.isabs(names_path) else names_path
+
     download_model_if_needed(model_path, SKIN_MODEL_GDRIVE_ID)
+
     if not TF_AVAILABLE:
         return None, None
     try:
@@ -169,15 +176,19 @@ ALL_FEATURES = [
 
 
 def load_risk_model(model_path: str, features_path: str):
-    """Load XGBoost model and feature list."""
+
+    # Fix paths
+    model_path = os.path.join(BASE_DIR, model_path) if not os.path.isabs(model_path) else model_path
+    features_path = os.path.join(BASE_DIR, features_path) if not os.path.isabs(features_path) else features_path
+
     try:
         model    = pickle.load(open(model_path, 'rb'))
         features = pickle.load(open(features_path, 'rb'))
         return model, features
+
     except Exception as e:
         print(f"[Risk model load error] {e}")
         return None, None
-
 
 def predict_diabetes_risk(input_data: dict, model, features: list) -> dict:
     """
