@@ -110,7 +110,7 @@ def load_skin_model(model_path: str, names_path: str):
     Load the MobileNetV2 skin disease model and class names.
     Returns (model, class_names) or (None, None) on failure.
     """
-   # Convert to absolute path
+    # Convert to absolute path
     model_path = os.path.join(BASE_DIR, model_path) if not os.path.isabs(model_path) else model_path
     names_path = os.path.join(BASE_DIR, names_path) if not os.path.isabs(names_path) else names_path
 
