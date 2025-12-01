@@ -178,6 +178,7 @@ ALL_FEATURES = [
 ]
 
 
+@st.cache_resource   
 def load_risk_model(model_path: str, features_path: str):
 
     # Fix paths
