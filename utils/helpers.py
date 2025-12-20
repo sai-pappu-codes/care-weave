@@ -107,11 +107,16 @@ def focal_loss(gamma=2.0, alpha=0.25):
 
 
 
-@st.cache_resource   # ✅ ADD THIS LINE
+@st.cache_resource   
 def load_skin_model(model_path: str, names_path: str):
 
     model_path = os.path.join(BASE_DIR, model_path) if not os.path.isabs(model_path) else model_path
     names_path = os.path.join(BASE_DIR, names_path) if not os.path.isabs(names_path) else names_path
+    
+    print("MODEL PATH:", model_path)
+    print("NAMES PATH:", names_path)
+    print("MODEL EXISTS:", os.path.exists(model_path))
+    print("NAMES EXISTS:", os.path.exists(names_path))
 
     download_model_if_needed(model_path, SKIN_MODEL_GDRIVE_ID)
 
