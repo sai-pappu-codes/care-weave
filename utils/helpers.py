@@ -185,6 +185,12 @@ def load_risk_model(model_path: str, features_path: str):
     model_path = os.path.join(BASE_DIR, model_path) if not os.path.isabs(model_path) else model_path
     features_path = os.path.join(BASE_DIR, features_path) if not os.path.isabs(features_path) else features_path
 
+     # DEBUG
+    print("MODEL PATH:", model_path)
+    print("FEATURE PATH:", features_path)
+    print("MODEL EXISTS:", os.path.exists(model_path))
+    print("FEATURE EXISTS:", os.path.exists(features_path))
+
     try:
         model    = pickle.load(open(model_path, 'rb'))
         features = pickle.load(open(features_path, 'rb'))
