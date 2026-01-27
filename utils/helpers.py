@@ -10,6 +10,7 @@ import json
 import math
 import tempfile
 import joblib
+import pickle
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -201,7 +202,7 @@ def load_risk_model(model_path: str, features_path: str):
     try:
         model = joblib.load(model_path)
         features = joblib.load(features_path)
-      return model, features
+        return model, features
 
     except Exception as e:
         print(f"[Risk model load error] {e}")
