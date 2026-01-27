@@ -131,7 +131,7 @@ def load_skin_model(model_path: str, names_path: str):
             custom_objects={
                 'focal_loss_fn': focal_loss(gamma=2.0, alpha=0.25),
                 'focal_loss': focal_loss(gamma=2.0, alpha=0.25)
-            }
+            },
             compile=False
         )
 
