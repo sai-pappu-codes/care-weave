@@ -13,6 +13,7 @@ import joblib
 import pickle
 import warnings
 warnings.filterwarnings('ignore')
+import traceback
 
 import numpy as np
 import pandas as pd
@@ -127,18 +128,23 @@ def load_skin_model(model_path: str, names_path: str):
     try:
         model = tf.keras.models.load_model(
             model_path,
-            custom_objects={'focal_loss_fn': focal_loss(gamma=2.0, alpha=0.25)},
-            compile=False,
-            safe_mode=False
+            custom_objects={
+                'focal_loss_fn': focal_loss(gamma=2.0, alpha=0.25),
+                'focal_loss': focal_loss(gamma=2.0, alpha=0.25)
+            }
+            compile=False
         )
-        
 
+        print("✅ SKIN MODEL LOADED SUCCESSFULLY") 
+        print("Trying to open class names file...")
+        
         with open(names_path, 'rb') as f:
             class_names = pickle.load(f)
 
         return model, class_names
 
     except Exception as e:
+        traceback.print_exc()  
         print(f"[Skin model load error] {e}")
         return None, None
 
