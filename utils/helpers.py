@@ -9,7 +9,7 @@ import re
 import json
 import math
 import tempfile
-import pickle
+import joblib
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -199,9 +199,9 @@ def load_risk_model(model_path: str, features_path: str):
     print("FEATURE EXISTS:", os.path.exists(features_path))
 
     try:
-        model    = pickle.load(open(model_path, 'rb'))
-        features = pickle.load(open(features_path, 'rb'))
-        return model, features
+        model = joblib.load(model_path)
+        features = joblib.load(features_path)
+      return model, features
 
     except Exception as e:
         print(f"[Risk model load error] {e}")
