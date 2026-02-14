@@ -129,10 +129,8 @@ def load_skin_model(model_path: str, names_path: str):
         model = tf.keras.models.load_model(
             model_path,
             custom_objects={
-                'focal_loss_fn': focal_loss(gamma=2.0, alpha=0.25),
-                'focal_loss': focal_loss(gamma=2.0, alpha=0.25)
-            },
-            compile=False
+                'focal_loss_fn': focal_loss(gamma=2.0, alpha=0.25)
+            }
         )
 
         print("✅ SKIN MODEL LOADED SUCCESSFULLY") 
