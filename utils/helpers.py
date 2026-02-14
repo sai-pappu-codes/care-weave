@@ -144,8 +144,9 @@ def load_skin_model(model_path: str, names_path: str):
         return model, class_names
 
     except Exception as e:
-        traceback.print_exc()  
-        print(f"[Skin model load error] {e}")
+        st.error("❌ Skin Model Load Error")
+        st.text(str(e))              
+        st.code(traceback.format_exc())  
         return None, None
 
 
