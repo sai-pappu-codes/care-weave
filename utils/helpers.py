@@ -128,13 +128,11 @@ def load_skin_model(model_path: str, names_path: str):
     try:
         model = tf.keras.models.load_model(
             model_path,
-            custom_objects={
-                'focal_loss_fn': focal_loss(gamma=2.0, alpha=0.25)
-            }
+            compile=False,
+            safe_mode=False
         )
 
         print("✅ SKIN MODEL LOADED SUCCESSFULLY") 
-        print("Trying to open class names file...")
         
         with open(names_path, 'rb') as f:
             class_names = pickle.load(f)
