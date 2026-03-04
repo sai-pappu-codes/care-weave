@@ -8,32 +8,28 @@ st.set_page_config(page_title="Skin Disease | MedAI Nexus", page_icon="🔬", la
 
 # ── Paths (update these to your saved model locations) ────────────────────────
 BASE_DIR   = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MODEL_PATH = os.path.join(BASE_DIR, "models", "skin_model_clean.keras")
+MODEL_PATH = os.path.join(BASE_DIR, "models", "skin_model_compatible.keras")
 NAMES_PATH = os.path.join(BASE_DIR, "models", "skin_disease_class_names.pkl")
 
 st.title("🔬 Module 1 — Skin Disease Prediction")
 st.caption("Upload a skin image. MobileNetV2 classifies it into one of 20 skin disease categories.")
 
-st.info("📌 Ensure `skin_model_clean.keras` and `skin_disease_class_names.pkl` are in the `models/` folder.", icon="ℹ️")
+st.info("📌 Model will be downloaded automatically if not found.", icon="ℹ️")
 
 # ── Load model (cached — only loads once per session) ─────────────────────────
-@st.cache_resource(show_spinner="Downloading skin model from Google Drive...")
+@st.cache_resource(show_spinner="Loading skin model...")
 def get_skin_model():
-    import gdown
-    if not os.path.exists(MODEL_PATH):
-        os.makedirs("models", exist_ok=True)
-        url = f"https://drive.google.com/uc?id=1vqg7Ts-U9yscs6_t4m99qNHw3wk4G_H4"
-        gdown.download(url, MODEL_PATH, quiet=False)
-        st.write("Downloaded:", os.path.exists(MODEL_PATH))
-        st.write("Model path:", MODEL_PATH)
     return load_skin_model(MODEL_PATH, NAMES_PATH)
 
 
 model, class_names = get_skin_model()
+
+st.write("Model path used:", MODEL_PATH)
 st.write("Model loaded:", model is not None)
 st.write("Classes loaded:", class_names is not None)
+
 if model is None:
-    st.error("❌ Could not load model. Check that the model file path is correct and TensorFlow is installed.")
+    st.error("❌ Could not load model. Check logs.")
     st.stop()
 
 # ── Upload image ──────────────────────────────────────────────────────────────
