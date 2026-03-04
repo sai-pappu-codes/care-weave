@@ -65,7 +65,8 @@ except ImportError:
 
 # ── Google Drive model ID ─────────────────────────────────────────────────────
 import gdown
-SKIN_MODEL_GDRIVE_ID = "1YZvtCwOKdVdFotppkCGFXn8DoHf6CEQr"   
+SKIN_MODEL_GDRIVE_ID = "1Y4L286gQuDH7JgjWo0zzNGD_UEQtsWAl"
+MODEL_FILENAME = "skin_model_compatible.keras"
 
 def download_model_if_needed(model_path: str, gdrive_id: str):
     import os
@@ -112,7 +113,8 @@ def focal_loss(gamma=2.0, alpha=0.25):
 @st.cache_resource   
 def load_skin_model(model_path: str, names_path: str):
 
-    model_path = os.path.join(BASE_DIR, model_path) if not os.path.isabs(model_path) else model_path
+    model_path = os.path.join(BASE_DIR, "models", MODEL_FILENAME)
+    
     names_path = os.path.join(BASE_DIR, names_path) if not os.path.isabs(names_path) else names_path
     
     print("MODEL PATH:", model_path)
