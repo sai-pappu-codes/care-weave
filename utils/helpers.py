@@ -65,7 +65,7 @@ except ImportError:
 
 # ── Google Drive model ID ─────────────────────────────────────────────────────
 import gdown
-SKIN_MODEL_GDRIVE_ID = "1Y4L286gQuDH7JgjWo0zzNGD_UEQtsWAl"
+SKIN_MODEL_GDRIVE_ID = "1tNHwtnOMFCKDHYXOzuK9MNAMWELo-DTQ"
 MODEL_FILENAME = "skin_model_compatible.keras"
 
 def download_model_if_needed(model_path: str, gdrive_id: str):
@@ -122,6 +122,12 @@ def load_skin_model(model_path: str, names_path: str):
     print("MODEL EXISTS:", os.path.exists(model_path))
     print("NAMES EXISTS:", os.path.exists(names_path))
 
+    # 🔥 FORCE DELETE OLD MODEL (ADD THIS)
+    if os.path.exists(model_path):
+    os.remove(model_path)
+    print("🗑️ Old model deleted")
+
+    # Download fresh model
     download_model_if_needed(model_path, SKIN_MODEL_GDRIVE_ID)
 
     if not TF_AVAILABLE:
