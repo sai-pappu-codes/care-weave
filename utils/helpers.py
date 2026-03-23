@@ -122,10 +122,12 @@ def load_skin_model(model_path: str, names_path: str):
     print("MODEL EXISTS:", os.path.exists(model_path))
     print("NAMES EXISTS:", os.path.exists(names_path))
 
-    # 🔥 FORCE DELETE OLD MODEL (ADD THIS)
-    if os.path.exists(model_path):
-    os.remove(model_path)
-    print("🗑️ Old model deleted")
+    # 🔥 TEMP FIX (only delete once)
+    if "model_deleted" not in st.session_state:
+        if os.path.exists(model_path):
+            os.remove(model_path)
+            print("🗑️ Old model deleted")
+       st.session_state["model_deleted"] = True
 
     # Download fresh model
     download_model_if_needed(model_path, SKIN_MODEL_GDRIVE_ID)
