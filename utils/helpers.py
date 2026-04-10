@@ -110,19 +110,14 @@ def focal_loss(gamma=2.0, alpha=0.25):
 
 
 
-@st.cache_resource   
+@st.cache_resource
 def load_skin_model(model_path: str, names_path: str):
 
-    model_path = model_path if os.path.isabs(model_path) else os.path.join(BASE_DIR, model_path)
-    
-    names_path = os.path.join(BASE_DIR, names_path) if not os.path.isabs(names_path) else names_path
-    
     print("MODEL PATH:", model_path)
     print("NAMES PATH:", names_path)
     print("MODEL EXISTS:", os.path.exists(model_path))
     print("NAMES EXISTS:", os.path.exists(names_path))
 
-    # 🔥 Download model only if missing (FINAL FIX)
     download_model_if_needed(model_path, SKIN_MODEL_GDRIVE_ID)
 
     if not TF_AVAILABLE:
@@ -147,7 +142,6 @@ def load_skin_model(model_path: str, names_path: str):
         st.text(str(e))              
         st.code(traceback.format_exc())  
         return None, None
-
 
 def predict_skin_disease(image_input, model, class_names, top_k: int = 3):
     """
