@@ -65,8 +65,8 @@ except ImportError:
 
 # ── Google Drive model ID ─────────────────────────────────────────────────────
 import gdown
-SKIN_MODEL_GDRIVE_ID = "1Pl-cpQfRP--ell6SMbFX9E1Q1j6QfPBE"
-MODEL_FILENAME = "skin_model_final_fixed.h5"
+SKIN_MODEL_GDRIVE_ID = "13WjfBkD8wbS0XVfDqj9S53H8vM-X6I3I"
+MODEL_FILENAME = "skin_weights_only.weights.h5"
 
 def download_model_if_needed(model_path: str, gdrive_id: str):
     import os
@@ -112,11 +112,8 @@ def focal_loss(gamma=2.0, alpha=0.25):
 
 @st.cache_resource
 def load_skin_model(model_path: str, names_path: str):
-
-    print("MODEL PATH:", model_path)
-    print("NAMES PATH:", names_path)
-    print("MODEL EXISTS:", os.path.exists(model_path))
-    print("NAMES EXISTS:", os.path.exists(names_path))
+    model_path = os.path.join(BASE_DIR, model_path) if not os.path.isabs(model_path) else model_path
+    names_path = os.path.join(BASE_DIR, names_path) if not os.path.isabs(names_path) else names_path
 
     download_model_if_needed(model_path, SKIN_MODEL_GDRIVE_ID)
 
@@ -124,23 +121,43 @@ def load_skin_model(model_path: str, names_path: str):
         return None, None
 
     try:
-        model = tf.keras.models.load_model(
-            model_path,
-            compile=False,
-            safe_mode=False
-        )
-
-        print("✅ SKIN MODEL LOADED SUCCESSFULLY") 
-        
         with open(names_path, 'rb') as f:
             class_names = pickle.load(f)
+        num_classes = len(class_names)
+        print(f"Class names loaded: {num_classes} classes")
+
+        # Rebuild architecture — pure Python, no config file
+        from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2
+        from tensorflow.keras import layers as L
+
+        base = MobileNetV2(input_shape=(224,224,3), include_top=False, weights='imagenet')
+        base.trainable = False
+
+        inp  = tf.keras.Input(shape=(224,224,3))
+        x    = base(inp, training=False)
+        x    = L.GlobalAveragePooling2D()(x)
+        x    = L.BatchNormalization()(x)
+        x    = L.Dense(512, activation='relu')(x)
+        x    = L.Dropout(0.4)(x)
+        x    = L.Dense(256, activation='relu')(x)
+        x    = L.Dropout(0.3)(x)
+        out  = L.Dense(num_classes, activation='softmax')(x)
+        model = tf.keras.Model(inp, out)
+
+        # Load weights — works on any Keras version, no config parsing
+        model.load_weights(model_path)
+        print("✅ Weights loaded successfully")
+
+        # Quick sanity check
+        dummy = np.zeros((1, 224, 224, 3), dtype=np.float32)
+        pred  = model.predict(dummy, verbose=0)
+        print(f"✅ Model working. Output shape: {pred.shape}")
 
         return model, class_names
 
     except Exception as e:
         st.error("❌ Skin Model Load Error")
-        st.text(str(e))              
-        st.code(traceback.format_exc())  
+        st.code(traceback.format_exc())
         return None, None
 
 def predict_skin_disease(image_input, model, class_names, top_k: int = 3):
