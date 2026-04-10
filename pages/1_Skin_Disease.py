@@ -8,9 +8,9 @@ st.set_page_config(page_title="Skin Disease | MedAI Nexus", page_icon="🔬", la
 
 # ── Paths (update these to your saved model locations) ────────────────────────
 BASE_DIR   = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MODEL_PATH = os.path.join(BASE_DIR, "models", "skin_model_final_fixed.h5")
+MODEL_PATH = os.path.join(BASE_DIR, "models", "skin_weights_only.weights.h5")
+# NAMES_PATH stays exactly the same — no change needed
 NAMES_PATH = os.path.join(BASE_DIR, "models", "skin_disease_class_names.pkl")
-
 st.title("🔬 Module 1 — Skin Disease Prediction")
 st.caption("Upload a skin image. MobileNetV2 classifies it into one of 20 skin disease categories.")
 
