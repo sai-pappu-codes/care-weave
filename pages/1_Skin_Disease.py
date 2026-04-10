@@ -8,7 +8,7 @@ st.set_page_config(page_title="Skin Disease | MedAI Nexus", page_icon="🔬", la
 
 # ── Paths (update these to your saved model locations) ────────────────────────
 BASE_DIR   = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MODEL_PATH = os.path.join(BASE_DIR, "models", "skin_model_compatible.keras")
+MODEL_PATH = os.path.join(BASE_DIR, "models", "skin_model_final_fixed.h5")
 NAMES_PATH = os.path.join(BASE_DIR, "models", "skin_disease_class_names.pkl")
 
 st.title("🔬 Module 1 — Skin Disease Prediction")
