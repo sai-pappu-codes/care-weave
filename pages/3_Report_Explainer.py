@@ -41,7 +41,7 @@ if uploaded:
     col_img, col_text = st.columns([1, 1])
 
     with col_img:
-        st.image(img, caption="Uploaded Report", use_container_width=True)
+        st.image(img, caption="Uploaded Report", width=400)
 
     with col_text:
         # Step 1: OCR
