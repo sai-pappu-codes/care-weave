@@ -47,7 +47,7 @@ if uploaded:
     col1, col2 = st.columns([1, 1])
 
     with col1:
-        st.image(img, caption="Uploaded Image", use_container_width=True)
+        st.image(img, caption="Uploaded Image", width=300)
 
     with col2:
         with st.spinner("Analysing image…"):
