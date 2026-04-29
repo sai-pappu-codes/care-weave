@@ -38,11 +38,11 @@ uploaded = st.file_uploader("Upload a skin image (JPEG or PNG)", type=["jpg","jp
 if uploaded:
     from PIL import Image
     try:
-    img = Image.open(uploaded).convert("RGB")
-except Exception as e:
-    st.error("❌ Error loading image")
-    st.text(str(e))
-    st.stop()
+        img = Image.open(uploaded).convert("RGB")
+    except Exception as e:
+        st.error("❌ Error loading image")
+        st.text(str(e))
+        st.stop()
 
     col1, col2 = st.columns([1, 1])
 
