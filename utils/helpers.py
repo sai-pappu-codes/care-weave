@@ -386,7 +386,7 @@ def explain_report_gemini(ocr_text: str, patient_age=None, patient_gender=None,
         return {'parse_error': True, 'raw_response': 'Gemini not configured.'}
 
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    model = genai.GenerativeModel("gemini-1.5-flash-latest")
 
     context = ""
     if patient_age:    context += f" Patient age: {patient_age}."
