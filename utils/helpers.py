@@ -58,7 +58,8 @@ except ImportError:
     SHAP_AVAILABLE = False
 
 try:
-    import google.generativeai as genai
+    from google import genai
+    from google.genai import types as genai_types
     GEMINI_AVAILABLE = True
 except ImportError:
     GEMINI_AVAILABLE = False
@@ -379,14 +380,10 @@ def extract_ocr_text(pil_image) -> str:
 
 def explain_report_gemini(ocr_text: str, patient_age=None, patient_gender=None,
                            api_key: str = None) -> dict:
-    """
-    Send OCR text to Gemini 1.5 Flash and return structured JSON explanation.
-    """
     if not GEMINI_AVAILABLE or not api_key:
         return {'parse_error': True, 'raw_response': 'Gemini not configured.'}
 
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    client = genai.Client(api_key=api_key)
 
     context = ""
     if patient_age:    context += f" Patient age: {patient_age}."
@@ -398,17 +395,20 @@ def explain_report_gemini(ocr_text: str, patient_age=None, patient_gender=None,
               f"Return ONLY valid JSON.")
 
     try:
-        response    = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=prompt,
+            config=genai_types.GenerateContentConfig(temperature=0.2)
+        )
         result_text = response.text.strip()
-        match       = re.search(r'\{.*\}', result_text, re.DOTALL)
+        match = re.search(r'\{.*\}', result_text, re.DOTALL)
         if match:
             result_text = match.group()
         return json.loads(result_text)
     except json.JSONDecodeError:
-        return {'parse_error': True, 'raw_response': result_text if 'result_text' in dir() else ''}
+        return {'parse_error': True, 'raw_response': result_text}
     except Exception as e:
         return {'parse_error': True, 'raw_response': str(e)}
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE 4 — CHATBOT
@@ -462,19 +462,19 @@ def get_emergency_response() -> str:
 
 
 def create_chat_session(health_context: dict, api_key: str):
-    """Create and return a Gemini chat session object."""
     if not GEMINI_AVAILABLE or not api_key:
         return None
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(
-        model_name         = "gemini-1.5-flash",
-        system_instruction = build_chatbot_system_prompt(health_context),
+    client = genai.Client(api_key=api_key)
+    chat = client.chats.create(
+        model="gemini-2.0-flash",
+        config=genai_types.GenerateContentConfig(
+            system_instruction=build_chatbot_system_prompt(health_context)
+        )
     )
-    return model.start_chat(history=[])
+    return chat
 
 
 def send_chat_message(chat_session, user_message: str) -> str:
-    """Send a message to the Gemini chat session. Returns response text."""
     if chat_session is None:
         return "MedBot is not configured. Please add your Gemini API key in the sidebar."
     if is_emergency(user_message):
@@ -578,44 +578,28 @@ Return ONLY valid JSON with this exact structure:
 
 def generate_wellness_plan(lifestyle_data: dict, scores: dict,
                             health_context: dict, api_key: str) -> dict:
-    """Call Gemini to generate a 7-day wellness plan."""
     if not GEMINI_AVAILABLE or not api_key:
         return {'parse_error': True, 'raw_response': 'Gemini not configured.'}
 
-    genai.configure(api_key=api_key)
+    client = genai.Client(api_key=api_key)
 
-    parts = [WELLNESS_SYSTEM_PROMPT, "\n\nUSER LIFESTYLE SCORES (0-100):"]
-    for dim, score in scores.items():
-        if dim != 'Overall':
-            status = 'NEEDS IMPROVEMENT' if score < 50 else 'FAIR' if score < 70 else 'GOOD'
-            parts.append(f"  {dim}: {score:.0f}/100 — {status}")
-    parts.append(f"  Overall: {scores.get('Overall', 0)}/100")
-
-    parts.append("\nUSER LIFESTYLE DETAILS:")
-    for k, v in lifestyle_data.items():
-        parts.append(f"  {k}: {v}")
-
-    if health_context:
-        parts.append("\nHEALTH RESULTS FROM EARLIER MODULES:")
-        for k, v in health_context.items():
-            if v and v != 'Not assessed yet':
-                parts.append(f"  {k}: {v}")
-
-    parts.append("\nReturn ONLY the JSON plan. No extra text.")
-    prompt = "\n".join(parts)
+   
 
     try:
-        model = genai.GenerativeModel(
-            "gemini-1.5-flash",
-            generation_config=genai.GenerationConfig(temperature=0.6, max_output_tokens=3000)
+        response = client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=prompt,
+            config=genai_types.GenerateContentConfig(
+                temperature=0.6,
+                max_output_tokens=3000
+            )
         )
-        response    = model.generate_content(prompt)
         result_text = response.text.strip()
-        match       = re.search(r'\{.*\}', result_text, re.DOTALL)
+        match = re.search(r'\{.*\}', result_text, re.DOTALL)
         if match:
             result_text = match.group()
         return json.loads(result_text)
     except json.JSONDecodeError:
-        return {'parse_error': True, 'raw_response': result_text if 'result_text' in dir() else ''}
+        return {'parse_error': True, 'raw_response': result_text}
     except Exception as e:
         return {'parse_error': True, 'raw_response': str(e)}
