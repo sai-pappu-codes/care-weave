@@ -11,12 +11,8 @@ st.caption("Upload a lab report image. Tesseract reads it, Gemini 1.5 Flash expl
 # ── API Key ───────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown("### 🔑 Gemini API Key")
-    api_key = st.text_input("Enter your Gemini API key", type="password",
-                             help="Free at: https://aistudio.google.com/app/apikey")
-    st.caption("Key is used only in your session and never stored.")
-
-if not api_key:
-    st.info("👈 Enter your Gemini API key in the sidebar to enable explanations.", icon="🔑")
+    api_key = st.secrets["GEMINI_API_KEY"]
+    st.success("✅ API Key loaded securely")
 
 # ── Patient context ───────────────────────────────────────────────────────────
 with st.expander("Optional: Add patient context for better explanations"):
