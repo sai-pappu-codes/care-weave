@@ -463,7 +463,7 @@ def get_emergency_response() -> str:
 
 def create_chat_session(health_context: dict, api_key: str):
     if not GEMINI_AVAILABLE or not api_key:
-        return None
+        return None, None
     client = genai.Client(api_key=api_key)
     chat = client.chats.create(
         model="gemini-2.5-flash",
@@ -471,7 +471,7 @@ def create_chat_session(health_context: dict, api_key: str):
             system_instruction=build_chatbot_system_prompt(health_context)
         )
     )
-    return chat
+    return client, chat   # return BOTH — client must stay alive
 
 
 def send_chat_message(chat_session, user_message: str) -> str:
@@ -484,7 +484,6 @@ def send_chat_message(chat_session, user_message: str) -> str:
         return response.text
     except Exception as e:
         return f"Sorry, I had trouble responding. Please try again. ({str(e)[:80]})"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE 5 — LIFESTYLE COACH
