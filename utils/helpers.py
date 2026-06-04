@@ -396,7 +396,7 @@ def explain_report_gemini(ocr_text: str, patient_age=None, patient_gender=None,
 
     try:
         response = client.models.generate_content(
-            model="gemini-2.5-flash-lite-preview-06-17",
+            model="gemini-2.5-flash",
             contents=prompt,
             config=genai_types.GenerateContentConfig(temperature=0.2)
         )
@@ -466,7 +466,7 @@ def create_chat_session(health_context: dict, api_key: str):
         return None
     client = genai.Client(api_key=api_key)
     chat = client.chats.create(
-        model="gemini-2.5-flash-lite-preview-06-17",
+        model="gemini-2.5-flash",
         config=genai_types.GenerateContentConfig(
             system_instruction=build_chatbot_system_prompt(health_context)
         )
@@ -587,7 +587,7 @@ def generate_wellness_plan(lifestyle_data: dict, scores: dict,
 
     try:
         response = client.models.generate_content(
-            model="gemini-2.5-flash-lite-preview-06-17",
+            model="gemini-2.5-flash",
             contents=prompt,
             config=genai_types.GenerateContentConfig(
                 temperature=0.6,
