@@ -148,9 +148,9 @@ if submitted:
             days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
             weekly = plan.get('weekly_plan', {})
 
-           if not weekly or not isinstance(weekly, dict):
-               st.error("⚠️ Invalid plan format. Please regenerate.")
-               st.stop())
+            if not weekly or not isinstance(weekly, dict):
+                st.error("⚠️ Invalid plan format. Please regenerate.")
+                st.stop())
                
             tabs   = st.tabs(days)
             for tab, day in zip(tabs, days):
