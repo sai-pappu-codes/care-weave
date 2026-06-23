@@ -44,7 +44,10 @@ health_context = {
 
 if 'chat_session' not in st.session_state:
     with st.spinner("Initialising MedBot…"):
-        st.session_state.chat_session = create_chat_session(health_context, api_key)
+        # Store BOTH client and chat in session_state
+        client, chat = create_chat_session(health_context, api_key)
+        st.session_state.gemini_client = client   # keeps client alive
+        st.session_state.chat_session  = chat
     st.session_state.messages = []
 
 if 'messages' not in st.session_state:
