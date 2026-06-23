@@ -586,6 +586,7 @@ def generate_wellness_plan(lifestyle_data: dict, scores: dict,
     parts = []
 
     parts.append(WELLNESS_SYSTEM_PROMPT)
+    parts.append("\nSTRICT RULE: Fill ALL 7 days (Monday–Sunday) with morning, afternoon, evening. Do NOT leave empty."))
 
     parts.append("\nUSER LIFESTYLE SCORES:")
     for dim, score in scores.items():
