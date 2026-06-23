@@ -586,8 +586,15 @@ def generate_wellness_plan(lifestyle_data: dict, scores: dict,
     parts = []
 
     parts.append(WELLNESS_SYSTEM_PROMPT)
-    parts.append("\nSTRICT RULE: Fill ALL 7 days (Monday–Sunday) with morning, afternoon, evening. Do NOT leave empty."))
 
+    parts.append("""
+    STRICT RULES:
+    - You MUST return valid JSON only
+    - You MUST fill ALL 7 days: Monday to Sunday
+    - Each day MUST include: morning, afternoon, evening
+    - Do NOT leave any field empty
+    - Do NOT return text outside JSON
+    """)
     parts.append("\nUSER LIFESTYLE SCORES:")
     for dim, score in scores.items():
         if dim != 'Overall':
