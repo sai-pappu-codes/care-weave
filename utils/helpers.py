@@ -582,15 +582,38 @@ def generate_wellness_plan(lifestyle_data: dict, scores: dict,
 
     client = genai.Client(api_key=api_key)
 
+    # ── Build prompt (THIS IS MISSING) ─────────────────────────
+    parts = []
+
+    parts.append(WELLNESS_SYSTEM_PROMPT)
+
+    parts.append("\nUSER LIFESTYLE SCORES:")
+    for dim, score in scores.items():
+        if dim != 'Overall':
+           parts.append(f"{dim}: {score}/100")
+    parts.append(f"Overall: {scores.get('Overall', 0)}/100")
+
+    parts.append("\nUSER LIFESTYLE DETAILS:")
+    for k, v in lifestyle_data.items():
+        parts.append(f"{k}: {v}")
+
+    if health_context:
+        parts.append("\nPREVIOUS HEALTH RESULTS:")
+        for k, v in health_context.items():
+            if v and v != 'Not assessed yet':
+                parts.append(f"{k}: {v}")
+
+    prompt = "\n".join(parts)                            
    
 
     try:
         response = client.models.generate_content(
             model="gemini-2.5-flash",
-            contents=prompt,
+            contents=[prompt],
             config=genai_types.GenerateContentConfig(
                 temperature=0.6,
-                max_output_tokens=3000
+                max_output_tokens=3000,
+                response_mime_type="application/json"    
             )
         )
         result_text = response.text.strip()
