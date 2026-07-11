@@ -150,7 +150,7 @@ if submitted:
 
             if not weekly or not isinstance(weekly, dict):
                 st.error("⚠️ Invalid plan format. Please regenerate.")
-                st.stop())
+                st.stop()
                
             tabs   = st.tabs(days)
             for tab, day in zip(tabs, days):
