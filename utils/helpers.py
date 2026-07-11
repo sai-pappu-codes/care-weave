@@ -595,6 +595,7 @@ def generate_wellness_plan(lifestyle_data: dict, scores: dict,
     - Do NOT leave any field empty
     - Do NOT return text outside JSON
     """)
+                                
     parts.append("\nUSER LIFESTYLE SCORES:")
     for dim, score in scores.items():
         if dim != 'Overall':
