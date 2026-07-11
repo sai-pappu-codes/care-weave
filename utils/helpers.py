@@ -618,7 +618,7 @@ def generate_wellness_plan(lifestyle_data: dict, scores: dict,
     try:
         response = client.models.generate_content(
             model="gemini-2.5-flash",
-            contents=[prompt],
+            contents=prompt,
             config=genai_types.GenerateContentConfig(
                 temperature=0.6,
                 max_output_tokens=3000,
@@ -626,10 +626,29 @@ def generate_wellness_plan(lifestyle_data: dict, scores: dict,
             )
         )
         result_text = response.text.strip()
+
+        # 🔥 Fix: remove markdown / quotes / formatting issues
+        result_text = result_text.replace("```json", "").replace("```", "").strip()
+
+        # 🔥 Extract JSON safely
         match = re.search(r'\{.*\}', result_text, re.DOTALL)
+
         if match:
-            result_text = match.group()
-        return json.loads(result_text)
+            clean_json = match.group()
+
+            try:
+                return json.loads(clean_json)
+            except:
+                return {
+                    'parse_error': True,
+                    'raw_response': clean_json
+                }
+
+        return {
+            'parse_error': True,
+            'raw_response': result_text
+        }
+        
     except json.JSONDecodeError:
         return {'parse_error': True, 'raw_response': result_text}
     except Exception as e:
