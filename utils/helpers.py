@@ -589,11 +589,12 @@ def generate_wellness_plan(lifestyle_data: dict, scores: dict,
 
     parts.append("""
     STRICT RULES:
-    - You MUST return valid JSON only
-    - You MUST fill ALL 7 days: Monday to Sunday
-    - Each day MUST include: morning, afternoon, evening
-    - Do NOT leave any field empty
-    - Do NOT return text outside JSON
+    - Return ONLY valid JSON
+    - Do NOT include numbering like 0:, 1:
+    - Use proper JSON arrays like ["item1", "item2"]
+    - Add commas between all fields
+    - Ensure JSON is syntactically correct
+    - Do NOT include explanations outside JSON
     """)
                                 
     parts.append("\nUSER LIFESTYLE SCORES:")
@@ -630,15 +631,18 @@ def generate_wellness_plan(lifestyle_data: dict, scores: dict,
         # 🔥 Fix: remove markdown / quotes / formatting issues
         result_text = result_text.replace("```json", "").replace("```", "").strip()
 
-        # 🔥 Extract JSON safely
+        # Extract JSON safely
         match = re.search(r'\{.*\}', result_text, re.DOTALL)
 
         if match:
             clean_json = match.group()
 
+            clean_json = re.sub(r',\s*}', '}', clean_json)        # trailing commas
+            clean_json = re.sub(r',\s*]', ']', clean_json)
+
             try:
                 return json.loads(clean_json)
-            except:
+            except json.JSONDecodeError:
                 return {
                     'parse_error': True,
                     'raw_response': clean_json
