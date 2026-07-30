@@ -144,7 +144,7 @@ Always consult a qualified healthcare professional before making any health deci
 st.divider()
 st.markdown(
     '<div style="text-align:center;color:#94A3B8;font-size:0.8rem;">'
-    'MedAI Nexus · Student Project · Powered by MobileNetV2 · XGBoost · Tesseract · Gemini 1.5 Flash'
+    'MedAI Nexus · Student Project · Powered by MobileNetV2 · XGBoost · Tesseract · Gemini 2.5 Flash'
     '</div>',
     unsafe_allow_html=True
 )
