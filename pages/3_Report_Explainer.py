@@ -59,7 +59,7 @@ if uploaded:
             st.stop()
 
         # Step 2: Gemini explanation
-        with st.spinner("Step 2: Gemini 1.5 Flash is analysing your report…"):
+        with st.spinner("Step 2: Gemini 2.5 Flash is analysing your report…"):
             result = explain_report_gemini(
                 ocr_text, patient_age, patient_gender, api_key
             )
