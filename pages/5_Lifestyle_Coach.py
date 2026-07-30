@@ -131,7 +131,6 @@ if submitted:
 
         with st.spinner("Gemini is writing your personalised 7-day wellness plan (10-20 seconds)…"):
             plan = generate_wellness_plan(lifestyle_data, scores, health_context, api_key)
-        st.write("DEBUG PLAN:", plan)
 
         if plan.get('parse_error'):
             st.error("Could not generate plan. Try again.")
