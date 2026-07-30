@@ -24,9 +24,9 @@ def get_skin_model():
 
 model, class_names = get_skin_model()
 
-st.write("Model path used:", MODEL_PATH)
-st.write("Model loaded:", model is not None)
-st.write("Classes loaded:", class_names is not None)
+#st.write("Model path used:", MODEL_PATH)
+#st.write("Model loaded:", model is not None)
+#st.write("Classes loaded:", class_names is not None)
 
 if model is None:
     st.error("❌ Could not load model. Check logs.")
