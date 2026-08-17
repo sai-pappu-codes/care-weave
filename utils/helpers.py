@@ -236,10 +236,10 @@ def predict_diabetes_risk(input_data: dict, model, features: list) -> dict:
     row  = pd.DataFrame([input_data])[features]
     prob = model.predict_proba(row)[0][1]
 
-    if prob < 0.30:
+    if prob < 0.25:
         risk_level = "Low"
         color      = "green"
-    elif prob < 0.60:
+    elif prob < 0.50:
         risk_level = "Moderate"
         color      = "orange"
     else:
