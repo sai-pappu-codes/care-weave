@@ -409,8 +409,8 @@ def explain_report_gemini(ocr_text: str, patient_age=None, patient_gender=None,
         return {'parse_error': True, 'raw_response': result_text}
     except Exception as e:
         err = str(e)
-         if '429' in err or 'RESOURCE_EXHAUSTED' in err:
-             return {'parse_error': True, 'raw_response': '⏳ API quota reached. Please wait 1 minute and try again, or use a different API key.'} 
+        if '429' in err or 'RESOURCE_EXHAUSTED' in err:
+            return {'parse_error': True, 'raw_response': '⏳ API quota reached. Please wait 1 minute and try again, or use a different API key.'} 
         return {'parse_error': True, 'raw_response': str(e)}
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -486,6 +486,9 @@ def send_chat_message(chat_session, user_message: str) -> str:
         response = chat_session.send_message(user_message)
         return response.text
     except Exception as e:
+        err = str(e)
+        if '429' in err or 'RESOURCE_EXHAUSTED' in err:
+            return "⏳ API quota reached. Please wait 1 minute and try again, or use a different API key."
         return f"Sorry, I had trouble responding. Please try again. ({str(e)[:80]})"
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -659,4 +662,7 @@ def generate_wellness_plan(lifestyle_data: dict, scores: dict,
     except json.JSONDecodeError:
         return {'parse_error': True, 'raw_response': result_text}
     except Exception as e:
+        err = str(e)
+        if '429' in err or 'RESOURCE_EXHAUSTED' in err:
+            return {'parse_error': True, 'raw_response': '⏳ API quota reached. Please wait 1 minute and try again, or use a different API key.'}
         return {'parse_error': True, 'raw_response': str(e)}
