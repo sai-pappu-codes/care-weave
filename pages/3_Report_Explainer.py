@@ -9,11 +9,18 @@ st.title("📋 Module 3 — Medical Report Explainer")
 st.caption("Upload a lab report image. Tesseract reads it, Gemini 2.5 Flash explains it in plain language.")
 
 # ── API Key ───────────────────────────────────────────────────────────────────
+#with st.sidebar:
+    #st.markdown("### 🔑 Gemini API Key")
+    #api_key = st.secrets["GEMINI_API_KEY"]
+    #st.success("✅ API Key loaded securely")
+
 with st.sidebar:
     st.markdown("### 🔑 Gemini API Key")
-    api_key = st.secrets["GEMINI_API_KEY"]
-    st.success("✅ API Key loaded securely")
-
+    api_key = st.text_input("Enter your Gemini API key", type="password", ...)
+    st.caption("Key is used only in your session and never stored.")
+    st.caption("🔑 Get your free key at aistudio.google.com")
+    st.caption("Each user's key has its own quota — no sharing needed")
+    
 # ── Patient context ───────────────────────────────────────────────────────────
 with st.expander("Optional: Add patient context for better explanations"):
     col_a, col_b = st.columns(2)
