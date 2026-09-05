@@ -284,6 +284,6 @@ All health outputs include a disclaimer: **Not a medical diagnosis. Always consu
 ---
 
 <div align="center">
-  <strong>MedAI Nexus</strong> · Built with ❤️ by Fathima Salga · Kochi, Kerala<br>
+  <strong>MedAI Nexus</strong> · Built by Fathima Salga · Kochi, Kerala<br>
   TensorFlow · XGBoost · Tesseract · Gemini 2.5 Flash · Streamlit
 </div>
