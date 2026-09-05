@@ -1,4 +1,4 @@
-# 🏥 MedAI Nexus — 
+# 🏥 MedAI Nexus 
 AI-Powered Multi-Modal Healthcare Assistant
 ---
 
