@@ -1,4 +1,5 @@
-# 🏥 MedAI Nexus — AI-Powered Multi-Modal Healthcare Assistant
+# 🏥 MedAI Nexus — 
+AI-Powered Multi-Modal Healthcare Assistant
 ---
 
 > **Capstone Project** | Data Science with GenAI | Entri Elevate × NSDC × Illinois Tech  
