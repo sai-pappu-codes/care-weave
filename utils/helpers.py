@@ -151,7 +151,8 @@ def load_skin_model(model_path: str, names_path: str):
 
         # Quick sanity check
         dummy = np.zeros((1, 224, 224, 3), dtype=np.float32)
-        pred  = model.predict(dummy, verbose=0)
+        pred = model(dummy, training=False)
+        pred = pred.numpy()
         print(f"✅ Model working. Output shape: {pred.shape}")
 
         return model, class_names
