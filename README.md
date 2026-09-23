@@ -3,7 +3,7 @@ AI-Powered Multi-Modal Healthcare Assistant
 ---
 
 > **Capstone Project** | Data Science with GenAI | Entri Elevate × NSDC × Illinois Tech  
-> **Built by:** Fathima Salga | Kochi, Kerala  
+> **Built by:** Saikrishnap<br>
 > **Live App:** [https://pfveklr9pexfstzg65gq8s.streamlit.app](https://pfveklr9pexfstzg65gq8s.streamlit.app)
 
 ---
@@ -191,7 +191,7 @@ brew install tesseract
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/fathimasalga/medai-nexus.git
+git clone https://github.com/saikrishnap0/medai-nexus.git
 cd medai-nexus
 
 # 2. Install Python dependencies
@@ -266,14 +266,9 @@ Get a free API key from [Google AI Studio](https://aistudio.google.com/app/apike
 
 ##  About the Developer
 
-**Fathima Salga**  
-Aspiring Data Scientist | Kochi, Kerala
+**Saikrishnap**
 
--  M.Sc Physical Oceanography — CUSAT (CGPA 8.29)
--  Ex-Project Associate — DRDO NPOL (2022-2024)
--  Data Science with GenAI — Entri × Illinois Tech × NSDC
--  [LinkedIn](https://www.linkedin.com/in/fathima-salga-4193ab20b/)
--  [GitHub](https://github.com/fathimasalga)
+-  [GitHub](https://github.com/saikrishnap0)
 
 ---
 
@@ -285,6 +280,6 @@ All health outputs include a disclaimer: **Not a medical diagnosis. Always consu
 ---
 
 <div align="center">
-  <strong>MedAI Nexus</strong> · Built by Fathima Salga · Kochi, Kerala<br>
+  <strong>MedAI Nexus</strong> · Built by Saikrishnap<br>
   TensorFlow · XGBoost · Tesseract · Gemini 2.5 Flash · Streamlit
 </div>
