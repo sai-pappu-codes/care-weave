@@ -423,8 +423,8 @@ EMERGENCY_KEYWORDS = [
     'seizure', 'overdose', 'bleeding heavily'
 ]
 
-CHATBOT_SYSTEM_TEMPLATE = """You are MedBot, a compassionate and knowledgeable AI health assistant.
-You are part of MedAI Nexus, an AI-powered healthcare assistant system.
+CHATBOT_SYSTEM_TEMPLATE = """You are CareWeave Assistant, a compassionate and knowledgeable AI health assistant.
+You are part of CareWeave, an AI-powered healthcare assistant system.
 
 ABOUT THIS USER (from previous modules):
 - Skin disease result: {skin}
@@ -479,7 +479,7 @@ def create_chat_session(health_context: dict, api_key: str):
 
 def send_chat_message(chat_session, user_message: str) -> str:
     if chat_session is None:
-        return "MedBot is not configured. Please add your Gemini API key in the sidebar."
+        return "CareWeave Assistant is not configured. Please add your Gemini API key in the sidebar."
     if is_emergency(user_message):
         return get_emergency_response()
     try:

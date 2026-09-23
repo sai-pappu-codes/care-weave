@@ -1,7 +1,7 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="MedAI Nexus",
+    page_title="CareWeave",
     page_icon="🏥",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -55,7 +55,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ── Header ────────────────────────────────────────────────────────────────────
-st.markdown('<div class="main-title">🏥 MedAI Nexus</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-title">🏥 CareWeave</div>', unsafe_allow_html=True)
 st.markdown('<div class="sub-title">AI-Powered Multi-Modal Healthcare Assistant</div>', unsafe_allow_html=True)
 
 st.divider()
@@ -65,7 +65,7 @@ col_intro, col_status = st.columns([2, 1])
 
 with col_intro:
     st.markdown("""
-    **MedAI Nexus** is a student healthcare AI project that combines five intelligent modules:
+    **CareWeave** is a student healthcare AI project that combines five intelligent modules:
     upload a skin photo, answer health questions, scan a lab report, chat with an AI doctor,
     and receive a personalised lifestyle plan — all in one place.
 
@@ -103,7 +103,7 @@ modules = [
     ("🔬", "Skin Disease",    "Upload a skin photo for disease classification",        "pages/1_Skin_Disease.py"),
     ("💉", "Health Risk",     "Predict diabetes risk from 21 health indicators",       "pages/2_Health_Risk.py"),
     ("📋", "Report Explainer","Scan a lab report and get plain-language explanation",  "pages/3_Report_Explainer.py"),
-    ("💬", "AI Chatbot",      "Ask personalised health questions to MedBot",           "pages/4_AI_Chatbot.py"),
+    ("💬", "AI Chatbot",      "Ask personalised health questions to CareWeave Assistant",           "pages/4_AI_Chatbot.py"),
     ("🌿", "Lifestyle Coach", "Get a 7-day personalised wellness plan",                "pages/5_Lifestyle_Coach.py"),
 ]
 
@@ -124,7 +124,7 @@ steps = [
     "**Step 1** — Go to **Skin Disease** → upload a photo of your skin",
     "**Step 2** — Go to **Health Risk** → fill in your health indicators",
     "**Step 3** — Go to **Report Explainer** → upload your lab report image",
-    "**Step 4** — Go to **AI Chatbot** → ask MedBot about your results",
+    "**Step 4** — Go to **AI Chatbot** → ask CareWeave Assistant about your results",
     "**Step 5** — Go to **Lifestyle Coach** → fill the lifestyle form and get your 7-day plan",
 ]
 for s in steps:
@@ -134,7 +134,7 @@ for s in steps:
 st.markdown("""
 <div class="disclaimer-box">
 ⚠️ <strong>Medical Disclaimer:</strong>
-MedAI Nexus is a student project for educational purposes only.
+CareWeave is a student project for educational purposes only.
 All outputs are <strong>not medical diagnoses</strong>.
 Always consult a qualified healthcare professional before making any health decisions.
 </div>
@@ -144,7 +144,7 @@ Always consult a qualified healthcare professional before making any health deci
 st.divider()
 st.markdown(
     '<div style="text-align:center;color:#94A3B8;font-size:0.8rem;">'
-    'MedAI Nexus · Student Project · Powered by MobileNetV2 · XGBoost · Tesseract · Gemini 2.5 Flash'
+    'CareWeave · Student Project · Powered by MobileNetV2 · XGBoost · Tesseract · Gemini 2.5 Flash'
     '</div>',
     unsafe_allow_html=True
 )

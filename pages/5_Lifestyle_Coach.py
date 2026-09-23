@@ -3,7 +3,7 @@ import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from utils.helpers import compute_lifestyle_scores, make_radar_fig, generate_wellness_plan
 
-st.set_page_config(page_title="Lifestyle Coach | MedAI Nexus", page_icon="🌿", layout="wide")
+st.set_page_config(page_title="Lifestyle Coach | CareWeave", page_icon="🌿", layout="wide")
 
 st.title("🌿 Module 5 — Lifestyle Coach")
 st.caption("Fill in your lifestyle habits. Get a scored assessment and personalised 7-day wellness plan.")

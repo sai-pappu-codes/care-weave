@@ -1,4 +1,4 @@
-# 🏥 MedAI Nexus 
+# 🏥 CareWeave
 AI-Powered Multi-Modal Healthcare Assistant
 ---
 
@@ -10,7 +10,7 @@ AI-Powered Multi-Modal Healthcare Assistant
 
 ##  About the Project
 
-MedAI Nexus is a **5-module AI-powered healthcare assistant** built and deployed end-to-end as a capstone project. It helps patients understand their own health data through computer vision, machine learning, OCR, and large language models — all integrated into a single Streamlit web application.
+CareWeave is a **5-module AI-powered healthcare assistant** built and deployed end-to-end as a capstone project. It helps patients understand their own health data through computer vision, machine learning, OCR, and large language models — all integrated into a single Streamlit web application.
 
 > **Medical Disclaimer:** This is a student project for educational purposes only. All outputs are NOT medical diagnoses. Always consult a qualified healthcare professional before making any health decisions.
 
@@ -18,7 +18,7 @@ MedAI Nexus is a **5-module AI-powered healthcare assistant** built and deployed
 
 ##  Live Demo
 
- **[Open MedAI Nexus](https://pfveklr9pexfstzg65gq8s.streamlit.app)**
+ **[Open CareWeave](https://pfveklr9pexfstzg65gq8s.streamlit.app)**
 
 | Module | What it does |
 |--------|-------------|
@@ -152,7 +152,7 @@ Raw Image → Grayscale → Denoise → CLAHE → Binarise → Deskew → Tesser
 ## 📁 Project Structure
 
 ```
-medai-nexus/
+careweave/
 ├── app.py                          ← Home page / entry point
 ├── requirements.txt                ← Python dependencies
 ├── packages.txt                    ← System packages (Tesseract)
@@ -191,8 +191,8 @@ brew install tesseract
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/saikrishnap0/medai-nexus.git
-cd medai-nexus
+git clone https://github.com/saikrishnap0/careweave.git
+cd careweave
 
 # 2. Install Python dependencies
 pip install -r requirements.txt
@@ -280,6 +280,6 @@ All health outputs include a disclaimer: **Not a medical diagnosis. Always consu
 ---
 
 <div align="center">
-  <strong>MedAI Nexus</strong> · Built by Saikrishnap<br>
+  <strong>CareWeave</strong> · Built by Saikrishnap<br>
   TensorFlow · XGBoost · Tesseract · Gemini 2.5 Flash · Streamlit
 </div>

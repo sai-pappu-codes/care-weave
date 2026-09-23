@@ -3,7 +3,7 @@ import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from utils.helpers import extract_ocr_text, explain_report_gemini
 
-st.set_page_config(page_title="Report Explainer | MedAI Nexus", page_icon="📋", layout="wide")
+st.set_page_config(page_title="Report Explainer | CareWeave", page_icon="📋", layout="wide")
 
 st.title("📋 Module 3 — Medical Report Explainer")
 st.caption("Upload a lab report image. Tesseract reads it, Gemini 2.5 Flash explains it in plain language.")

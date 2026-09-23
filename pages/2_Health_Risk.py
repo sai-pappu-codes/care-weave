@@ -5,7 +5,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from utils.helpers import load_risk_model, predict_diabetes_risk, make_shap_waterfall_fig
 
-st.set_page_config(page_title="Health Risk | MedAI Nexus", page_icon="💉", layout="wide")
+st.set_page_config(page_title="Health Risk | CareWeave", page_icon="💉", layout="wide")
 
 # Build path relative to this file's location
 BASE_DIR     = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

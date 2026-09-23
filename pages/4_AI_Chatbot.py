@@ -3,10 +3,10 @@ import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from utils.helpers import create_chat_session, send_chat_message, is_emergency
 
-st.set_page_config(page_title="AI Chatbot | MedAI Nexus", page_icon="💬", layout="centered")
+st.set_page_config(page_title="AI Chatbot | CareWeave", page_icon="💬", layout="centered")
 
-st.title("💬 Module 4 — MedBot AI Health Chatbot")
-st.caption("Ask health questions. MedBot answers using your results from Modules 1, 2, and 3.")
+st.title("💬 Module 4 — CareWeave Assistant AI Health Chatbot")
+st.caption("Ask health questions. CareWeave Assistant answers using your results from Modules 1, 2, and 3.")
 
 # ── Sidebar: API key + context preview ────────────────────────────────────────
 with st.sidebar:
@@ -43,7 +43,7 @@ health_context = {
 }
 
 if 'chat_session' not in st.session_state:
-    with st.spinner("Initialising MedBot…"):
+    with st.spinner("Initialising CareWeave Assistant…"):
         # Store BOTH client and chat in session_state
         client, chat = create_chat_session(health_context, api_key)
         st.session_state.gemini_client = client   # keeps client alive
@@ -56,7 +56,7 @@ if 'messages' not in st.session_state:
 # ── Welcome message (first load) ──────────────────────────────────────────────
 if not st.session_state.messages:
     welcome = (
-        "👋 Hello! I'm **MedBot**, your AI health assistant.\n\n"
+        "👋 Hello! I'm **CareWeave Assistant**, your AI health assistant.\n\n"
         "I can answer questions about your health based on your earlier module results. "
         "What would you like to know?"
     )
@@ -68,7 +68,7 @@ for msg in st.session_state.messages:
         st.markdown(msg["content"])
 
 # ── Chat input ────────────────────────────────────────────────────────────────
-user_input = st.chat_input("Ask MedBot a health question…")
+user_input = st.chat_input("Ask CareWeave Assistant a health question…")
 
 if user_input:
     # Show user message immediately
@@ -82,7 +82,7 @@ if user_input:
         response = get_emergency_response()
     else:
         with st.chat_message("assistant", avatar="🤖"):
-            with st.spinner("MedBot is thinking…"):
+            with st.spinner("CareWeave Assistant is thinking…"):
                 response = send_chat_message(st.session_state.chat_session, user_input)
             st.markdown(response)
 
@@ -107,14 +107,14 @@ for col, suggestion in zip(cols, suggestions):
         if st.button(suggestion, use_container_width=True):
             # Inject as if user typed it
             st.session_state.messages.append({"role": "user", "content": suggestion})
-            with st.spinner("MedBot is thinking…"):
+            with st.spinner("CareWeave Assistant is thinking…"):
                 response = send_chat_message(st.session_state.chat_session, suggestion)
             st.session_state.messages.append({"role": "assistant", "content": response})
             st.rerun()
 
 st.divider()
 st.warning(
-    "⚠️ **MedBot is not a doctor.** Answers are for educational purposes only. "
+    "⚠️ **CareWeave Assistant is not a doctor.** Answers are for educational purposes only. "
     "Always consult a qualified healthcare professional for medical decisions.",
     icon="⚠️"
 )

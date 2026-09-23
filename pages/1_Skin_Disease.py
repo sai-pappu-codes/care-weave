@@ -4,7 +4,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from utils.helpers import load_skin_model, predict_skin_disease
 
-st.set_page_config(page_title="Skin Disease | MedAI Nexus", page_icon="🔬", layout="centered")
+st.set_page_config(page_title="Skin Disease | CareWeave", page_icon="🔬", layout="centered")
 
 # ── Paths (update these to your saved model locations) ────────────────────────
 BASE_DIR   = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
