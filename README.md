@@ -152,7 +152,7 @@ Raw Image → Grayscale → Denoise → CLAHE → Binarise → Deskew → Tesser
 ## 📁 Project Structure
 
 ```
-careweave/
+care-weave/
 ├── app.py                          ← Home page / entry point
 ├── requirements.txt                ← Python dependencies
 ├── packages.txt                    ← System packages (Tesseract)
@@ -191,8 +191,8 @@ brew install tesseract
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/saikrishnap0/careweave.git
-cd careweave
+git clone https://github.com/sai-pappu-codes/care-weave.git
+cd care-weave
 
 # 2. Install Python dependencies
 pip install -r requirements.txt
